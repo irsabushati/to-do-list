@@ -9,21 +9,47 @@
 <body>
     <label for="todo-text"></label>
     <input type="text" id="todo-text" name="todo-text" placeholder="Type a to-do">
-
+    <!-- Unordered list for to-do-list elements. -->
+    <ul></ul>
 </body>
 </html>
 <script>
+
     let todotext = document.getElementById("todo-text");
+    let count;
 
     todotext.addEventListener("keypress", (event) => {
         if(event.key == "Enter"){
-            /*console.log(todotext.value);*/
-            let newdiv = document.createElement("div");
-            newdiv.innerHTML = todotext.value;
-            document.body.appendChild(newdiv);
+            /* console.log(todotext.value); */
+            let newelement = document.createElement("li");
+            newelement.id = "element-li" + count;
+            count++;
+            newelement.innerHTML = todotext.value;
+            document.body.appendChild(newelement);
             todotext.value = "";
-        }   
-    }
-    );
+
+            newelement.addEventListener('mouseover', (event) => {
+                newelement.style.color = "gray";
+            });
+
+            newelement.addEventListener('mouseout', (event) => {
+                newelement.style.color = "black";
+            });
+
+            newelement.addEventListener('click', (event) => {
+                newelement.style.textDecoration = "line-through";
+            });
+
+
+            
+        } 
+    });
+    
+
+
+    /*let newelements = document.getElementsByTagName('li');
+    newelements.addEventListener("mouseover", () => {
+        newelements.style.textDecoration = "line-through";
+    });*/
 
 </script>
