@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do</title>
+</head>
+<body>
+    <label for="todo-text"></label>
+    <input type="text" id="todo-text" name="todo-text" placeholder="Type a to-do">
+
+</body>
+</html>
+<script>
+    let todotext = document.getElementById("todo-text");
+
+    todotext.addEventListener("keypress", (event) => {
+        if(event.key == "Enter"){
+            /*console.log(todotext.value);*/
+            let newdiv = document.createElement("div");
+            newdiv.innerHTML = todotext.value;
+            document.body.appendChild(newdiv);
+            todotext.value = "";
+        }   
+    }
+    );
+
+</script>
