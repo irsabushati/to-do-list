@@ -1,0 +1,115 @@
+:root {
+   --background: rgba(234, 234, 243, 0.73);
+   --box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+   --glass-background : rgba(234, 234, 243, 0.73);
+   --white: rgb(245, 244, 244);
+   --secondary-color: rgb(141,187,127);
+   --tertiary-color: rgb(182,47,113);
+   --quaternary-color: rgb(211,214,241);
+   --text: rgba(21, 21, 21, 0.786);
+   --purple: rgb(97,96,228);
+}
+@font-face {
+    font-family: "Karrik-Regular";
+    src: url("/fonts/Karrik-Regular.ttf") format("ttf");
+}
+
+body {
+    background-color: rgb(196,201,236);
+}
+
+.wrapper {
+    display:grid;
+    grid-template-columns: 1fr auto auto 1fr;
+    grid-template-rows: 0.5fr 1fr 1fr 0.5fr;
+    grid-gap: 20px;   
+}
+
+/* Greeting container */
+#container-greet {
+    width: 200px;
+    height: 210px;
+    padding: 20px 20px 20px 20px;
+    grid-column: 2/3;
+    grid-row: 2/3;
+    font-size: 45px; 
+    z-index: 10000;
+    /* From https://css.glass */
+    background: var(--glass-background);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+#greetingText {
+    font-weight:550;
+    margin-top:25px;
+    margin-bottom: 0;
+    line-height: 49px;
+    color:var(--text);
+    font-family: "Karrik", sans-serif;
+}
+
+/* Description container */
+#container-desc {
+    width: 190px;
+    height: 180px;
+    padding: 30px 30px 30px 20px;
+    grid-column: 2/3;
+    grid-row: 3/4;
+    font-size: 45px;
+    /* From https://css.glass */
+    background: var(--glass-background);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 10000;
+}
+
+#descText {
+    font-size: 15px;
+    text-align: justify;
+    font-family: "Karrik", sans-serif;
+    color:var(--text);
+}
+
+/* To-Do List container */
+#container-todolist {
+    width: 400px;
+    height:max-content;
+    padding: 20px;
+    grid-column: 3/4;
+    grid-row: 2/4;
+    /* From https://css.glass */
+    background: var(--background);
+    border-radius: 16px;
+    box-shadow:var(--box-shadow);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 10000;
+}
+input {
+    background-color:var(--white);
+    border:1px solid transparent;
+    border-radius: 12px;
+    padding: 10px;
+    width: 95%;
+}
+ul {
+    list-style-type: none;
+    margin-left: -2.5em; 
+}
+li {
+    background-color: var(--purple);
+    padding:20px;
+    margin-bottom:10px;
+    border-radius: 18px;
+    font-size: 13px;
+    color:var(--white);
+    font-family: "Karrik", sans-serif;
+}
+li:hover {
+    box-shadow: var(--box-shadow);
+    -webkit-box-shadow: 4px 3px 8px 1px #969696;
+}
