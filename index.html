@@ -4,52 +4,101 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" 
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <title>To-Do List</title>
 </head>
 <body>
-    <label for="todo-text"></label>
-    <input type="text" id="todo-text" name="todo-text" placeholder="Type a to-do">
-    <!-- Unordered list for to-do-list elements. -->
-    <ul></ul>
+    <!-- Main box that contains other boxes, made for grid purposes. -->
+    <div class="wrapper">
+
+        <!-- Little circles for decoration. -->
+            <!-- Green circle. -->
+        <svg height="100" width="100" id="ball-1" style="margin-top:7%; margin-left:22%;z-index:1;position:absolute;">
+            <circle cx="50" cy="50" r="35" fill="rgb(141,187,127)" />
+        </svg>
+
+            <!-- Purple circle.  -->
+        <svg height="100" width="100" id="ball-1" style="margin-top:12%; margin-left:17%;z-index:1;position:absolute;">
+            <circle cx="50" cy="50" r="20" fill="rgb(97,96,228)" />
+        </svg>
+
+            <!-- Light purple circle.  -->
+        <svg height="100" width="100" id="ball-1" style="margin-top:5%; margin-left:14%;z-index:1;position:absolute;">
+            <circle cx="50" cy="50" r="17" fill="rgb(211,214,241)" />
+        </svg>
+
+
+        <!-- Greeting container, based on what time it is. -->
+        <div id="container-greet">
+            <p id="greetingText"></p>
+        </div>
+
+        <!-- Short description of what the user can do, providing the number of active tasks that still need to be done. -->
+        <div id="container-desc">
+            <p id="descText"> This is your To-Do List for the day. Add, delete and mark as done your tasks. </p>
+            <p id="totalTasks"></p>
+        </div>
+
+        <!-- The To-Do list, where one can add, do and delete tasks.  -->
+        <div id="container-todolist">
+            <!-- The user can insert tasks by writing them one by one in this input field. -->
+            <input type="text" id="todo-text" name="todo-text" placeholder="Type a to-do">
+            <p id="numberOfTasks"></p>
+            <!-- Unordered list for To-Do list elements. -->
+            <ul id="u-list"></ul>
+        </div>
+
+    </div>
 </body>
 </html>
 <script>
 
+    // Using the date JavaScript funtion to read the current time and greet the user based on it. 
+    const actualDate = new Date();
+    const currentHour = actualDate.getHours();
+    /*console.log(currentHour);*/
+
+    let greet = document.getElementById("greetingText");
+
+    // Checks the current hour to determine what phase of the day it is in order to greet the user.
+    if (currentHour < 12){
+        greet.innerHTML = "Good morning Irsa !";
+    } else if (currentHour < 18) {
+        greet.innerHTML = "Good afternoon Irsa!";
+    } else {
+        greet.innerHTML = "Good evening Irsa !"; 
+    }
+   
     let todotext = document.getElementById("todo-text");
     let count;
 
+    let nOt = document.getElementById("numberOfTasks");
     todotext.addEventListener("keypress", (event) => {
         if(event.key == "Enter"){
-            /* console.log(todotext.value); */
-            let newelement = document.createElement("li");
-            newelement.id = "element-li" + count;
-            count++;
-            newelement.innerHTML = todotext.value;
-            document.body.appendChild(newelement);
-            todotext.value = "";
+            // Creating new list element that contains the input text when not empty. 
+            if(todotext.value != "") {
+                let ul = document.getElementById("u-list");
+                let newelement = document.createElement("li");
+                /*newelement.id = "element-li" + count;*/
+                count++;
+                /*nOt.innerHTML = "You have " + count + " tasks to do.";*/
+                newelement.innerHTML = todotext.value;
+                ul.appendChild(newelement);
+                todotext.value = "";
 
-            newelement.addEventListener('mouseover', (event) => {
-                newelement.style.color = "gray";
-            });
+                // To-do turns to normal (black) when mouse is out. 
+                newelement.addEventListener('mouseout', (event) => {
+                    newelement.style.color = "white";
+                });
 
-            newelement.addEventListener('mouseout', (event) => {
-                newelement.style.color = "black";
-            });
-
-            newelement.addEventListener('click', (event) => {
-                newelement.style.textDecoration = "line-through";
-            });
-
-
-            
+                // To-do gets done when clicked 
+                newelement.addEventListener('click', (event) => {
+                    newelement.style.textDecoration = "line-through";
+                });
+            }
         } 
     });
     
-
-
-    /*let newelements = document.getElementsByTagName('li');
-    newelements.addEventListener("mouseover", () => {
-        newelements.style.textDecoration = "line-through";
-    });*/
-
 </script>
