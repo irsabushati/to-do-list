@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" 
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>To-Do List</title>
 </head>
 <body>
@@ -25,8 +26,28 @@
         </svg>
 
             <!-- Light purple circle.  -->
-        <svg height="100" width="100" id="ball-1" style="margin-top:5%; margin-left:14%;z-index:1;position:absolute;">
+        <svg height="100" width="100" id="ball-1" style="margin-top:7%; margin-left:16%;z-index:1;position:absolute;">
             <circle cx="50" cy="50" r="17" fill="rgb(211,214,241)" />
+        </svg>
+
+            <!-- Pink circle.  -->
+        <svg height="100" width="100" id="ball-1" style="margin-top:39%; margin-left:80%; z-index:1; position:absolute;">
+            <circle cx="50" cy="50" r="40" fill="rgb(182,47,113)" />
+        </svg>
+
+         <!-- Light purple circle.  -->
+         <svg height="100" width="100" id="ball-1" style="margin-top:45%; margin-left:75%;z-index:1;position:absolute;">
+            <circle cx="50" cy="50" r="29" fill="rgb(211,214,241)" />
+        </svg>
+
+        <!-- Green circle. -->
+        <svg height="100" width="100" id="ball-1" style="margin-top:40%; margin-left:73%;z-index:1;position:absolute;">
+            <circle cx="50" cy="50" r="15" fill="rgb(141,187,127)" />
+        </svg>
+
+        <!-- Purple circle.  -->
+        <svg height="100" width="100" id="ball-1" style="margin-top:45%; margin-left:68%;z-index:1;position:absolute;">
+            <circle cx="50" cy="50" r="24" fill="rgb(97,96,228)" />
         </svg>
 
 
@@ -37,15 +58,15 @@
 
         <!-- Short description of what the user can do, providing the number of active tasks that still need to be done. -->
         <div id="container-desc">
-            <p id="descText"> This is your To-Do List for the day. Add, delete and mark as done your tasks. </p>
+            <p id="descText"> This is your To-Do List for the day. You can add, delete and mark as done all of your tasks. </p>
             <p id="totalTasks"></p>
+            <p id="totalDoneTasks"></p>
         </div>
 
         <!-- The To-Do list, where one can add, do and delete tasks.  -->
         <div id="container-todolist">
             <!-- The user can insert tasks by writing them one by one in this input field. -->
             <input type="text" id="todo-text" name="todo-text" placeholder="Type a to-do">
-            <p id="numberOfTasks"></p>
             <!-- Unordered list for To-Do list elements. -->
             <ul id="u-list"></ul>
         </div>
@@ -58,7 +79,7 @@
     // Using the date JavaScript funtion to read the current time and greet the user based on it. 
     const actualDate = new Date();
     const currentHour = actualDate.getHours();
-    /*console.log(currentHour);*/
+        /*console.log(currentHour);*/
 
     let greet = document.getElementById("greetingText");
 
@@ -72,33 +93,83 @@
     }
    
     let todotext = document.getElementById("todo-text");
-    let count;
 
-    let nOt = document.getElementById("numberOfTasks");
+    // Declaring a counting variable for the sum of tasks and another counting variable for the sum of 
+    // done tasks.
+    let count = 0;
+    let countDone = 0;
+
+    let numberOfTasks = document.getElementById("totalTasks");
+    let numberOfDone = document.getElementById("totalDoneTasks");
+
+    // Default counters values.
+    numberOfTasks.innerHTML = "No tasks yet.";
+    numberOfDone.innerHTML = "No tasks done.";
+
+    //JavaScript event when enter is pressed. 
     todotext.addEventListener("keypress", (event) => {
         if(event.key == "Enter"){
+
             // Creating new list element that contains the input text when not empty. 
             if(todotext.value != "") {
                 let ul = document.getElementById("u-list");
                 let newelement = document.createElement("li");
-                /*newelement.id = "element-li" + count;*/
-                count++;
-                /*nOt.innerHTML = "You have " + count + " tasks to do.";*/
+
                 newelement.innerHTML = todotext.value;
                 ul.appendChild(newelement);
+                
+                // Each added task is calculated into a sum of total tasks active at the moment. 
+                count++;
+                numberOfTasks.innerHTML = count + " total task/-s.";
+
+                //The input is emptied as soon as enter is pressed, in order to insert another task through its' field.
                 todotext.value = "";
 
-                // To-do turns to normal (black) when mouse is out. 
-                newelement.addEventListener('mouseout', (event) => {
-                    newelement.style.color = "white";
+                // To-do task turns to green when mouse is over. 
+                newelement.addEventListener('mouseover', (event) => {
+                    newelement.style.color = "rgb(141,187,127)";
                 });
 
-                // To-do gets done when clicked 
+                // To-do task turns to normal (white) when mouse is out. 
+                newelement.addEventListener('mouseout', (event) => {
+                    newelement.style.color = "rgb(245, 244, 244)";
+                });
+
+                // To-do gets done when clicked (through a line-through).
                 newelement.addEventListener('click', (event) => {
                     newelement.style.textDecoration = "line-through";
+
+                    // Done tasks counter increases with one when a task is marked as done.
+                    countDone++;
+                    numberOfDone.innerHTML = countDone + " task/-s done.";
+                });
+
+                //Delete funtion.
+                let deleteicon = document.createElement("button");
+                deleteicon.innerHTML = "Delete";
+                deleteicon.className = "material-icons";
+                deleteicon.innerHTML = "close";
+                newelement.appendChild(deleteicon);
+
+                deleteicon.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    //Everytime a certain task is deleted, the total task counter decreases with one.
+                    count--;
+                    numberOfTasks.innerHTML = count + " total task/-s.";
+
+                    //This if-statements checks if a task is done (by checking if it has a line-through), if the statement is
+                    //true, then the done counter decreases by one along with the total task counter.
+                    if(newelement.style.textDecoration){
+                        countDone--;
+                        numberOfDone.innerHTML = countDone + " task/-s done.";
+                    }
+
+                    let li = event.target.parentElement;
+                    ul.removeChild(li);
                 });
             }
         } 
     });
-    
+
 </script>
