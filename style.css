@@ -23,8 +23,17 @@ body {
     grid-template-columns: 1fr auto auto 1fr;
     grid-template-rows: 0.5fr 1fr 1fr 0.5fr;
     grid-gap: 20px;   
+} 
+.material-icons {
+    color:var(--white);
+    background-color: transparent;
+    background-repeat:no-repeat;
+    border: none;  
+    position: absolute;
+    left:69%;
+    margin-top: 0px;
+    padding: 0px;
 }
-
 /* Greeting container */
 #container-greet {
     width: 200px;
@@ -42,18 +51,19 @@ body {
     -webkit-backdrop-filter: blur(6px);
 }
 #greetingText {
-    font-weight:550;
-    margin-top:25px;
+    font-weight:bold;
+    margin-top:26px;
     margin-bottom: 0;
     line-height: 49px;
     color:var(--text);
     font-family: "Karrik", sans-serif;
+
 }
 
 /* Description container */
 #container-desc {
     width: 190px;
-    height: 180px;
+    height: 200px;
     padding: 30px 30px 30px 20px;
     grid-column: 2/3;
     grid-row: 3/4;
@@ -70,14 +80,29 @@ body {
 #descText {
     font-size: 15px;
     text-align: justify;
-    font-family: "Karrik", sans-serif;
+    font-family: "Karrik", regular;
     color:var(--text);
+}
+
+#totalTasks {
+    font-family: "Karrik", regular;
+    font-weight: bolder;
+    color:var(--purple);
+    text-decoration: underline;
+    font-size: 18px;
+} 
+#totalDoneTasks {
+    font-family: "Karrik", regular;
+    font-weight: bolder;
+    color:var(--purple);
+    text-decoration: underline;
+    font-size: 18px;
 }
 
 /* To-Do List container */
 #container-todolist {
     width: 400px;
-    height:max-content;
+    height:92%;
     padding: 20px;
     grid-column: 3/4;
     grid-row: 2/4;
@@ -105,11 +130,11 @@ li {
     padding:20px;
     margin-bottom:10px;
     border-radius: 18px;
-    font-size: 13px;
+    font-size: 15px;
     color:var(--white);
-    font-family: "Karrik", sans-serif;
+    font-family: "Karrik", regular;
 }
 li:hover {
     box-shadow: var(--box-shadow);
-    -webkit-box-shadow: 4px 3px 8px 1px #969696;
+    -webkit-box-shadow: var(--box-shadow);
 }
